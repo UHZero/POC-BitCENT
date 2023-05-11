@@ -8,7 +8,7 @@ export default function Pagina(props: PaginaProps) {
     return (
         <div className={`
             flex flex-col min-h-screen
-            bg-gradient-to-r from-lime-900 via-lime-700 to-lime-900
+            bg-gradient-to-r from-zinc-900 via-black to-zinc-from-zinc-900
             ${props.className ?? ''}
         `}>
             {props.children}

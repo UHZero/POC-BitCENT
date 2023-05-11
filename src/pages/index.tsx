@@ -1,9 +1,5 @@
-import Pagina from "@/components/template/Pagina";
+import Landing from "@/components/landing";
 
 export default function Home() {
-	return (
-		<Pagina>
-			POC - BitCent
-		</Pagina>
-	)
+	return <Landing />
 }
