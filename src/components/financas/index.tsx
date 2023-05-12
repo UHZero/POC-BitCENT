@@ -5,6 +5,7 @@ import Pagina from "../template/Pagina";
 import Transacao from "@/logic/core/financas/Transacao";
 import fakeTransactions from "@/data/constants/fakeTransaction";
 import Lista from "./Lista";
+import Formulario from "./Formulario";
 
 export default function Financas() {
 
@@ -13,8 +14,9 @@ export default function Financas() {
     return (
         <Pagina>
             <Cabecalho />
-            <Conteudo>
+            <Conteudo className="gap-5">
                 <Lista transacoes={transacoes} />
+                <Formulario transacao={transacoes[0]} />
             </Conteudo>
         </Pagina>
     )
