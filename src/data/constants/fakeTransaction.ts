@@ -15,7 +15,7 @@ const fakeTransactions: Transacao[] = [
         id: Id.novo(),
         descricao: 'Cartão Santander',
         data: new Date(2023, 5, 10),
-        valor: 3987.90,
+        valor: 987.90,
         tipo: TipoTransacao.DESPESA
     },
     {
@@ -48,3 +48,5 @@ const fakeTransactions: Transacao[] = [
     },
     
 ]
+
+export default fakeTransactions;
