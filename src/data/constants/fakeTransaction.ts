@@ -7,42 +7,42 @@ const fakeTransactions: Transacao[] = [
     {
         id: Id.novo(),
         descricao: 'Salário',
-        data: new Date(2023, 5, 12),
+        data: new Date(2023, 4, 12),
         valor: 3200.00,
         tipo: TipoTransacao.RECEITA
     },
     {
         id: Id.novo(),
         descricao: 'Cartão Santander',
-        data: new Date(2023, 5, 10),
+        data: new Date(2023, 4, 10),
         valor: 987.90,
         tipo: TipoTransacao.DESPESA
     },
     {
         id: Id.novo(),
         descricao: 'SESC - Educação Infantil',
-        data: new Date(2023, 5, 10),
+        data: new Date(2023, 4, 10),
         valor: 321.00,
         tipo: TipoTransacao.DESPESA
     },
     {
         id: Id.novo(),
         descricao: 'Óculos Novo',
-        data: new Date(2023, 5, 24),
+        data: new Date(2023, 4, 24),
         valor: 182.90,
         tipo: TipoTransacao.DESPESA
     },
     {
         id: Id.novo(),
         descricao: 'SuperMercado',
-        data: new Date(2023, 5, 7),
+        data: new Date(2023, 4, 7),
         valor: 925.32,
         tipo: TipoTransacao.DESPESA
     },
     {
         id: Id.novo(),
         descricao: 'Internet',
-        data: new Date(2023, 5, 15),
+        data: new Date(2023, 4, 15),
         valor: 99.90,
         tipo: TipoTransacao.DESPESA
     },
