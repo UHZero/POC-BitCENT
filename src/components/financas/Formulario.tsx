@@ -15,7 +15,7 @@ interface FormularioProps {
 
 export default function Formulario(props: FormularioProps) {
 
-    const {data, setFeature} = useFormulario(props.transacao)
+    const {data, setFeature} = useFormulario<Transacao>(props.transacao)
 
     return (
         <div className={`

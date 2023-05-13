@@ -1,8 +1,7 @@
-import Transacao from "@/logic/core/financas/Transacao"
 import { useState } from "react"
 
-export default function useFormulario(startData: Transacao) {
-    const [data, setData] = useState(startData)
+export default function useFormulario<T = any>(startData: T) {
+    const [data, setData] = useState<T>(startData)
 
     function setFeature(feature: string, fn?: Function) {
         return (valueOrEvent: any) => {
