@@ -1,6 +1,6 @@
 import Autenticacao from "@/logic/firebase/auth/Autenticacao"
 import User from "@/logic/core/user/User"
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 
 interface AuthProps {
     loading: boolean
@@ -19,10 +19,18 @@ const AuthContext = createContext<AuthProps>({
 export function AuthProvider(props: any) {
 
 
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(true)
     const [user, setUser] = useState<User | null>(null)
 
     const auth = new Autenticacao()
+
+    useEffect(() => {
+        const exit = auth.watch((u) => {
+            setUser(u)
+            setLoading(false)
+        })
+        return () => exit()
+    }, [])
 
     async function loginGoogle() {
         const user = await auth.loginGoogle()

@@ -1,8 +1,13 @@
-import fakeUser from "@/data/constants/fakeUser"
+// import fakeUser from "@/data/constants/fakeUser"
+
+import AuthContext from "@/data/contexts/AuthContext"
+import { useContext } from "react"
 
 export default function BoasVindas() {
+
+    const { user } = useContext(AuthContext)
     
-    const usuario = fakeUser
+    const usuario = user
     function renderizarNome() {
         return (
             <span className="hidden sm:inline">
