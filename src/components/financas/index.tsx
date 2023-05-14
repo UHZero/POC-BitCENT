@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Cabecalho from "../template/Cabecalho";
 import Conteudo from "../template/Conteudo";
 import Pagina from "../template/Pagina";
@@ -10,26 +10,13 @@ import NotFound from "../template/NotFound";
 import Id from "@/logic/core/comum/Id";
 import { Button } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
+import AuthContext from "@/data/contexts/AuthContext";
+import servicos from "@/logic/core";
+import useTransacao from "@/data/hooks/useTransacao";
 
 export default function Financas() {
-
-    const [transacoes, setTransacoes] = useState<Transacao[]>(fakeTransactions)
-    const [transacao, settransacao] = useState<Transacao | null>(null)
-
-    function salvar(transacao: Transacao) {
-        const outrasTransacoes = transacoes.filter(t => t.id !== transacao.id)
-        setTransacoes([...outrasTransacoes, {
-            ...transacao,
-            id: transacao.id ?? Id.novo()
-        }])
-        settransacao(null)
-    }
     
-    function excluir(transacao: Transacao) {
-        const outrasTransacoes = transacoes.filter(t => t.id !== transacao.id)
-        setTransacoes(outrasTransacoes)
-        settransacao(null)
-    }
+    const { transacao, transacoes, selecionar, salvar, excluir } = useTransacao()
 
     return (
         <Pagina>
@@ -38,7 +25,7 @@ export default function Financas() {
                 <Button
                     className="bg-blue-500"
                     leftIcon={<IconPlus />}
-                    onClick={() => settransacao(emptyTransaction)}
+                    onClick={() => selecionar(emptyTransaction)}
                 >
                     Nova transação
                 </Button>
@@ -47,12 +34,12 @@ export default function Financas() {
                         transacao={transacao}
                         salvar={salvar}
                         excluir={excluir}
-                        cancelar={() => settransacao(null)} 
+                        cancelar={() => selecionar(null)} 
                     />
                 ) : transacoes.length ? (
                     <Lista
                         transacoes={transacoes}
-                        selecionarTransacao={settransacao}
+                        selecionarTransacao={selecionar}
                     />
                 ) : (
                     <NotFound>
