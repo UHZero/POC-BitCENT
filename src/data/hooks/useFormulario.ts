@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-export default function useFormulario<T = any>(startData: T) {
-    const [data, setData] = useState<T>(startData)
+export default function useFormulario<T = any>(startData?: T) {
+    const [data, setData] = useState<T>(startData ?? {} as T)
 
     function setFeature(feature: string, fn?: Function) {
         return (valueOrEvent: any) => {
