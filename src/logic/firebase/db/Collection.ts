@@ -28,6 +28,7 @@ export interface Filter {
 export default class Collection {
 
     private _convertFromFirebase(snapshot: DocumentSnapshot<DocumentData>) {
+        if(!snapshot.exists()) return null
         const entity: any = { ...snapshot.data(), id: snapshot.id }
         if(!entity) return entity
         return Object.keys(entity).reduce((obj: any, att: string) => {
