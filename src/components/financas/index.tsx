@@ -8,27 +8,58 @@ import Lista from "./Lista";
 import Formulario from "./Formulario";
 import NotFound from "../template/NotFound";
 import Id from "@/logic/core/comum/Id";
-import { Button } from "@mantine/core";
-import { IconPlus } from "@tabler/icons-react";
+import { Button, SegmentedControl } from "@mantine/core";
+import { IconLayoutGrid, IconList, IconPlus } from "@tabler/icons-react";
 import AuthContext from "@/data/contexts/AuthContext";
 import servicos from "@/logic/core";
-import useTransacao from "@/data/hooks/useTransacao";
+import useTransacao, { TipoExibicao } from "@/data/hooks/useTransacao";
+import CampoMesAno from "../template/CampoMesAno";
+import Grade from "./Grade";
 
 export default function Financas() {
     
-    const { transacao, transacoes, selecionar, salvar, excluir } = useTransacao()
+    const { data, alterarData, transacao, transacoes, selecionar, salvar, excluir, alterarExibicao, tipoExibicao } = useTransacao()
+
+    function controllRender() {
+        return (
+            <div className="flex justify-between">
+                    <CampoMesAno
+                        data={data}
+                        dataMudou={alterarData}
+                    />
+                    <div className="flex gap-5">
+                        <Button
+                            className="bg-blue-500"
+                            leftIcon={<IconPlus />}
+                            onClick={() => selecionar(emptyTransaction)}
+                        >
+                            Nova transação
+                        </Button>
+                        <SegmentedControl
+                        data={[
+                            { label: <IconList />, value: 'lista' },
+                            { label: <IconLayoutGrid />, value: 'grade' }
+                        ]}
+                        onChange={tipo => alterarExibicao(tipo as TipoExibicao)}
+                    />
+                    </div>
+                </div>
+        )
+    }
+
+    function renderizarTransacoes() {
+        const props = { transacoes, selecionarTransacao: selecionar }
+        return tipoExibicao === 'lista' 
+            ? <Lista {...props} />
+            : <Grade {...props} />
+    }
+
 
     return (
         <Pagina>
             <Cabecalho />
             <Conteudo className="gap-5">
-                <Button
-                    className="bg-blue-500"
-                    leftIcon={<IconPlus />}
-                    onClick={() => selecionar(emptyTransaction)}
-                >
-                    Nova transação
-                </Button>
+                {controllRender()}
                 {transacao ? (
                     <Formulario 
                         transacao={transacao}
@@ -37,10 +68,7 @@ export default function Financas() {
                         cancelar={() => selecionar(null)} 
                     />
                 ) : transacoes.length ? (
-                    <Lista
-                        transacoes={transacoes}
-                        selecionarTransacao={selecionar}
-                    />
+                    renderizarTransacoes()
                 ) : (
                     <NotFound>
                         Nenhuma transação encontrada

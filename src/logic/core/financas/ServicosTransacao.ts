@@ -25,11 +25,11 @@ export default class ServicosTransacao {
         )
     }
 
-    // async getByMonth(user: User, data: Date) {
-    //     const path = `financas/${user.email}/transacoes`
-    //     return await this._collection.showWithFilter(path, [
-    //         { att: "data", op: ">=", value: Data.primeiroDia(data) },
-    //         { att: "data", op: "<=", value: Data.ultimoDia(data) },
-    //     ])
-    // }
+    async getByMonth(user: User, data: Date) {
+        const path = `financas/${user.email}/transacoes`
+        return await this._collection.showWithFilter(path, [
+            { att: "data", op: ">=", value: Data.primeiroDia(data) },
+            { att: "data", op: "<=", value: Data.ultimoDia(data) },
+        ])
+    }
 }
