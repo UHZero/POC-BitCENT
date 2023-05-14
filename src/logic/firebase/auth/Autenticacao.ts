@@ -1,7 +1,10 @@
 import User from "@/logic/core/user/User";
 
-import { Auth, GoogleAuthProvider, getAuth, signInWithPopup, signOut, User as FirebaseUser } from 'firebase/auth'
+import { Auth, GoogleAuthProvider, getAuth, signInWithPopup, signOut, User as FirebaseUser, onIdTokenChanged } from 'firebase/auth'
 import { app } from "../config/app";
+
+export type UserWatch = (user: User | null) => void
+export type WatchExit = () => void
 
 export default class Autenticacao {
     private _auth: Auth
@@ -17,6 +20,13 @@ export default class Autenticacao {
 
     logout(): Promise<void> {
         return signOut(this._auth)
+    }
+
+    watch(notify: UserWatch): WatchExit {
+        return onIdTokenChanged(this._auth, async (firebaseUser) => {
+            const user = this.userToUser(firebaseUser)
+            notify(user)
+        })
     }
 
     private userToUser(firebaseUser: FirebaseUser | null): User | null {
